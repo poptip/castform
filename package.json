@@ -1,0 +1,32 @@
+{
+  "name": "castform",
+  "version": "0.1.0",
+  "description": "Async form validation on the client and server.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "nodeunit test/*-test.js"
+  },
+  "repository": "git://github.com/poptip/castform.git",
+  "keywords": [
+    "form",
+    "validate",
+    "middleware"
+  ],
+  "author": "PopTip (https://github.com/poptip)",
+  "contributors": [
+    "Roly Fentanes (https://github.com/fent)"
+  ],
+  "dependencies": {
+    "async": "~0.1.22",
+    "connect": "~2.7.0",
+    "uglify-js": "~2.2.1"
+  },
+  "devDependencies": {
+    "muk": "~0.2.0",
+    "nodeunit": "*",
+    "request": "~2.12.0",
+    "through": "~2.1.0"
+  },
+  "license": "MIT",
+  "readmeFilename": "README.md"
+}
