@@ -59,9 +59,10 @@ module.exports = {
       }
     }
   , formPass: {
-      server: function(req, values) {
+      server: function(values, pass) {
+        // this.req
       }
-    , client: function(success, msg) {
+    , client: function(window, success, msg) {
       }
     }
   }
