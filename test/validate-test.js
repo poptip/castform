@@ -11,8 +11,8 @@ exports.async = function(test) {
   var context = { req: { hi: 'you' } };
   var value = 'duck';
 
-  validate.async(context, one, value, function(pass) {
-    test.ok(pass);
+  validate.async(context, one, value, function(success) {
+    test.ok(success);
     test.done();
   });
 };
@@ -222,15 +222,15 @@ exports.all = function(test) {
     username: '@_@',
     displayName: 'daddy'
   };
-  validate.all(context, options, values, function(pass, results) {
-    test.ok(!pass);
+  validate.all(context, options, values, function(success, results) {
+    test.ok(!success);
     test.deepEqual(results, {
       username: {
         value: '@_@',
-        pass: false,
+        success: false,
         msg: 'must contain only the characters a-za-z0-9_'
       },
-      displayName: { value: 'dad', pass: true, msg: null }
+      displayName: { value: 'dad', success: true, msg: null }
     });
   });
 
@@ -239,11 +239,11 @@ exports.all = function(test) {
     username: 'bobby',
     displayName: 'daddy'
   };
-  validate.all(context, options, values, function(pass, results) {
-    test.ok(pass);
+  validate.all(context, options, values, function(success, results) {
+    test.ok(success);
     test.deepEqual(results, {
-      username: { value: 'bobby', pass: true, msg: null },
-      displayName: { value: 'dad', pass: true, msg: null }
+      username: { value: 'bobby', success: true, msg: null },
+      displayName: { value: 'dad', success: true, msg: null }
     });
   });
 

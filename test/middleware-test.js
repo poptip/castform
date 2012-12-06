@@ -119,7 +119,7 @@ exports['validate field asynchronously'] = function(test) {
       test.deepEqual(headers, { 'Content-Type': 'application/json' });
     },
     end: function(data) {
-      var result = { pass: true };
+      var result = { success: true };
       test.equal(data, JSON.stringify(result));
       test.done();
     }
@@ -159,10 +159,10 @@ exports['validate submitted form'] = function(test) {
     },
     end: function(data) {
       var result = {
-        pass: false,
+        success: false,
         msg: {
           username: {
-            pass: false,
+            success: false,
             msg: 'Only alphabetic characters',
             value: 'bobby hill'
           }
