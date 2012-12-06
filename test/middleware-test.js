@@ -8,12 +8,14 @@ function rain(val, pass) {
 
 var middleware = require('../lib/middleware')({
   settings: {
-    username: {
-      required: true,
-      validate: [
-        { fn: /^[a-z]{1,15}$/i, msg: 'Only alphabetic characters' },
-        { fn: rain, msg: 'no!' }
-      ]
+    fields: {
+      username: {
+        required: true,
+        validate: [
+          { fn: /^[a-z]{1,15}$/i, msg: 'Only alphabetic characters' },
+          { fn: rain, msg: 'no!' }
+        ]
+      }
     }
   }
 });
@@ -81,7 +83,7 @@ exports['invalid id'] = function(test) {
       test.deepEqual(headers, { 'Content-Type': 'application/json' });
     },
     end: function(data) {
-      test.equal(data, '{"error":"no such id"}');
+      test.equal(data, '{"error":"no such id signout"}');
       test.done();
     }
   };
