@@ -49,7 +49,7 @@ module.exports = {
 
     , email: {
         validate: [
-          { fn: isEmail, msg: 'Must be a valid email', delayTooltip: 1000 }
+          { fn: isEmail, msg: 'Must be a valid email', delay: 1000 }
         , { fn: isAvailable
           , msg: 'That email is already associated with an account'
           }
@@ -57,8 +57,8 @@ module.exports = {
       , required: true
       , storage: { session: true }
       }
-    },
-    onSubmit: function() {
+    }
+  , submit: function() {
     }
   }
 };
