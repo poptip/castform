@@ -58,7 +58,11 @@ module.exports = {
       , storage: { session: true }
       }
     }
-  , submit: function() {
+  , formPass: {
+      server: function(req, values) {
+      }
+    , client: function(success, msg) {
+      }
     }
   }
 };

@@ -185,29 +185,34 @@ exports.field = {
 exports.all = function(test) {
   var context = { req: { hi: 'you' } };
   var options = {
-    username: {
-      validate: [
-        { fn: /^[a-zA-Z0-9_]*$/
-        , msg: 'Must contain only the characters a-zA-Z0-9_'
-        }
-      , { fn: /^.{1,15}$/, msg: 'Must be between 1 and 15 characters' }
-      , { fn: function(username, pass) {
-            test.equal(this, context);
-            process.nextTick(pass.bind(null, username !== 'gum'));
+    fields: {
+      username: {
+        validate: [
+          { fn: /^[a-za-z0-9_]*$/
+          , msg: 'must contain only the characters a-za-z0-9_'
           }
-        , msg: 'Username is taken' }
-      ]
-    , required: true
-    , storage: { session: true }
-    }
-
-  , displayName: {
-      sanitize: function(name) { return name.slice(0, 3); },
-      validate: {
-        fn: /^[^\n]{1,30}$/
-      , msg: 'Must be between 1 and 30 characters'
+        , { fn: /^.{1,15}$/, msg: 'must be between 1 and 15 characters' }
+        , { fn: function(username, pass) {
+              test.equal(this, context);
+              process.nextTick(pass.bind(null, username !== 'gum'));
+            }
+          , msg: 'username is taken' }
+        ]
+      , required: true
+      , storage: { session: true }
       }
-    , storage: { session: true }
+
+    , displayName: {
+        sanitize: function(name) { return name.slice(0, 3); },
+        validate: {
+          fn: /^[^\n]{1,30}$/
+        , msg: 'must be between 1 and 30 characters'
+        }
+      , storage: { session: true }
+      }
+    },
+    formPass: {
+      server: null
     }
   };
   var values;
@@ -223,7 +228,7 @@ exports.all = function(test) {
       username: {
         value: '@_@',
         pass: false,
-        msg: 'Must contain only the characters a-zA-Z0-9_'
+        msg: 'must contain only the characters a-za-z0-9_'
       },
       displayName: { value: 'dad', pass: true, msg: null }
     });
@@ -240,6 +245,46 @@ exports.all = function(test) {
       username: { value: 'bobby', pass: true, msg: null },
       displayName: { value: 'dad', pass: true, msg: null }
     });
+  });
+
+  test.expect(5);
+  process.nextTick(test.done);
+};
+
+
+exports['all with formPass function'] = function(test) {
+  var context = { req: { hi: 'you' } };
+  var options = {
+    fields: {
+      username: {
+        validate: [
+          { fn: /^[a-za-z0-9_]*$/
+          , msg: 'must contain only the characters a-za-z0-9_'
+          }
+        , { fn: /^.{1,15}$/, msg: 'must be between 1 and 15 characters' }
+        , { fn: function(username, pass) {
+              test.equal(this, context);
+              process.nextTick(pass.bind(null, username !== 'gum'));
+            }
+          , msg: 'username is taken' }
+        ]
+      , required: true
+      , storage: { session: true }
+      }
+    },
+    formPass: {
+      server: function(values, pass) {
+        test.equal(this, context);
+        test.deepEqual(values, { username: 'whatever' });
+        pass(true);
+      }
+    }
+  };
+  var values = { username: 'whatever' };
+
+  validate.all(context, options, values, function(success, results) {
+    test.ok(success);
+    test.ok(!results);
   });
 
   test.expect(5);
