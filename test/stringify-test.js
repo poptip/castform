@@ -52,3 +52,33 @@ exports['stringifies an object with all types'] = function(test) {
   test.equal(parts[1], '{"name":{"arr":[1,{"hello":"foo"},[function one(b) { return b + b + b; },2,4]],"recursion":{"hi":{"no":false,"fn0":castform.async(0)}},"fn1":function (x) { return x * 2; },"fn2":castform.async(1)},"dos":"zap"}');
   test.done();
 };
+
+
+exports['make formPass.submit null'] = function(test) {
+  var obj = {
+    whatevs: {
+      formPass: {
+        server: function(a, b) { return a + b; },
+      }
+    }
+  };
+
+  var parts = stringify(obj);
+  test.equal(parts[1], '{"whatevs":{"formPass":{"server":null}}}');
+  test.done();
+};
+
+
+exports['make formPass.client a string and not async'] = function(test) {
+  var obj = {
+    whativs: {
+      formPass: {
+        client: function(a, b) { return a + b; },
+      }
+    }
+  };
+
+  var parts = stringify(obj);
+  test.equal(parts[1], '{"whativs":{"formPass":{"client":function (a, b) { return a + b; }}}}');
+  test.done();
+};
