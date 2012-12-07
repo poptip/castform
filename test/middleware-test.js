@@ -7,14 +7,16 @@ function rain(val, pass) {
 
 
 var middleware = require('../lib/middleware')({
-  settings: {
-    fields: {
-      username: {
-        required: true,
-        validate: [
-          { fn: /^[a-z]{1,15}$/i, msg: 'Only alphabetic characters' },
-          { fn: rain, msg: 'no!' }
-        ]
+  forms: {
+    settings: {
+      fields: {
+        username: {
+          required: true,
+          validate: [
+            { fn: /^[a-z]{1,15}$/i, msg: 'Only alphabetic characters' },
+            { fn: rain, msg: 'no!' }
+          ]
+        }
       }
     }
   }
@@ -65,15 +67,16 @@ exports['invalid id'] = function(test) {
   var req = through();
   req.url = '/castform/async';
   req.setEncoding = function() {};
+  var data = JSON.stringify({
+    id: 'signout',
+  });
   req.headers = {
-    'content-type': 'application/json; charset=UTF-8'
+    'content-type': 'application/json; charset=UTF-8',
+    'content-length': data.length
   };
 
   process.nextTick(function() {
-    var data = {
-      id: 'signout',
-    };
-    req.write(JSON.stringify(data));
+    req.write(data);
     req.end();
   });
 
@@ -83,7 +86,7 @@ exports['invalid id'] = function(test) {
       test.deepEqual(headers, { 'Content-Type': 'application/json' });
     },
     end: function(data) {
-      test.equal(data, '{"error":"no such id signout"}');
+      test.equal(data, '{"success":false,"msg":"no such id signout"}');
       test.done();
     }
   };
@@ -100,16 +103,17 @@ exports['validate field asynchronously'] = function(test) {
   var req = through();
   req.url = '/castform/async';
   req.setEncoding = function() {};
+  var data = JSON.stringify({
+    id: '0',
+    values: 'bobby hill'
+  });
   req.headers = {
-    'content-type': 'application/json; charset=UTF-8'
+    'content-type': 'application/json; charset=UTF-8',
+    'content-length': data.length
   };
 
   process.nextTick(function() {
-    var data = {
-      id: '0',
-      values: 'bobby hill'
-    };
-    req.write(JSON.stringify(data));
+    req.write(data);
     req.end();
   });
 
@@ -137,18 +141,19 @@ exports['validate submitted form'] = function(test) {
   var req = through();
   req.url = '/castform/submit';
   req.setEncoding = function() {};
+  var data = JSON.stringify({
+    id: 'settings',
+    values: {
+      username: 'bobby hill'
+    }
+  });
   req.headers = {
-    'content-type': 'application/json; charset=UTF-8'
+    'content-type': 'application/json; charset=UTF-8',
+    'content-length': data.length
   };
 
   process.nextTick(function() {
-    var data = {
-      id: 'settings',
-      values: {
-        username: 'bobby hill'
-      }
-    };
-    req.write(JSON.stringify(data));
+    req.write(data);
     req.end();
   });
 

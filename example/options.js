@@ -25,44 +25,46 @@ function isAvailable(username, callback) {
 
 
 module.exports = {
-  signup: {
-    fields: {
-      username: {
-        validate: [
-          { fn: /^[a-zA-Z0-9_]*$/
-          , msg: 'Must contain only the characters a-zA-Z0-9_'
-          }
-        , { fn: /^.{1,15}$/, msg: 'Must be between 1 and 15 characters' }
-        , { fn: isAvailable, msg: 'That username is taken' }
-        ]
-      , required: true
-      , storage: { session: true }
-      }
-
-    , displayName: {
-        validate: {
-          fn: /^[^\n]{1,30}$/
-        , msg: 'Must be between 1 and 30 characters'
+  forms: {
+    signup: {
+      fields: {
+        username: {
+          validate: [
+            { fn: /^[a-zA-Z0-9_]*$/
+            , msg: 'Must contain only the characters a-zA-Z0-9_'
+            }
+          , { fn: /^.{1,15}$/, msg: 'Must be between 1 and 15 characters' }
+          , { fn: isAvailable, msg: 'That username is taken' }
+          ]
+        , required: true
+        , storage: { session: true }
         }
-      , storage: { session: true }
-      }
 
-    , email: {
-        validate: [
-          { fn: isEmail, msg: 'Must be a valid email', delay: 1000 }
-        , { fn: isAvailable
-          , msg: 'That email is already associated with an account'
+      , displayName: {
+          validate: {
+            fn: /^[^\n]{1,30}$/
+          , msg: 'Must be between 1 and 30 characters'
           }
-        ]
-      , required: true
-      , storage: { session: true }
+        , storage: { session: true }
+        }
+
+      , email: {
+          validate: [
+            { fn: isEmail, msg: 'Must be a valid email', delay: 1000 }
+          , { fn: isAvailable
+            , msg: 'That email is already associated with an account'
+            }
+          ]
+        , required: true
+        , storage: { session: true }
+        }
       }
-    }
-  , formPass: {
-      server: function(values, pass) {
-        // this.req
-      }
-    , client: function(window, success, msg) {
+    , formPass: {
+        server: function(values, pass) {
+          // this.req
+        }
+      , client: function(window, success, msg) {
+        }
       }
     }
   }
