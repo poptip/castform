@@ -64,7 +64,7 @@ exports['make submit.server null'] = function(test) {
   };
 
   var parts = stringify(obj);
-  test.equal(parts[1], '{"whatevs":{"submit":{"server":null}}}');
+  test.equal(parts[1], '{"whatevs":{"submit":{"server":true}}}');
   test.done();
 };
 

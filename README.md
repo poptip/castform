@@ -134,6 +134,9 @@ The following are the available options:
     // `pass` function must eventually be called with `true` if
     // the submission with the values was successful. Or with `false` and
     // an error message if not successful.
+    //
+    // If you don't want the form to be submitted to the server and
+    // validated, or you want to handle that yourself, set this to `false`.
     server: function(values, pass) {
       db.users.add(values, function(err) {
         pass(!err, err ? err.message : null);
@@ -141,13 +144,27 @@ The following are the available options:
     },
 
     // When the form is submitted on the client, these will be called.
-    // They can be used to for example display a loading icon next to the
-    // submit button. The submit button is also disabled by castform
-    // when the form is submitted, and enabled when the server calls
-    // the `pass` function with a failure..
     client: {
+      // This is called when a user submits a form client side.
+      // It can be used to for example display a loading icon next to the
+      // submit button. The submit button is also disabled by castform
+      // when the form is submitted, and enabled when the `pass` function
+      // is called with a failure.
       before: function($submit, options, values) {
       },
+
+      // Can be used to further check something in the values.
+      // If this function is given, then the `pass` function must eventually
+      // be called with a boolean `success` and a `message` argument.
+      //
+      // If `submit.server` is set to `false`, then this can be used to
+      // manually make a remote call.
+      validate: function($submit, options, values, pass) {
+      }
+
+      // This is called either after client side `validation` function
+      // finishes with an error, if it was provided. Or after the form
+      // is submitted to the server and the `pass` function is called.
       pass: function($submit, options, values, success, message) {
       }
     }
@@ -156,6 +173,40 @@ The following are the available options:
 ```
 
 Furthermore, the classes `castform-success` and `castform-fail` are added to a field when they pass or fail validation respectively. And the class `castform-submit` is added to the form when it has been submitted.
+
+### client side
+
+On the client, you'll need to include the script that castform provides in `/castform/castform.js`.
+
+```html
+<script src="/castform/castform.js"></script>
+```
+
+Castform should find your forms by looking at their id.
+
+```html
+<form id="form-signup">
+  <div>
+    <label for="username">username</label>
+    <input name="username" id="username" />
+  </div>
+  <div>
+    <input type="submit" />
+  </div>
+<form>
+```
+
+Options can also be accessed and set on the client side with `castform.options`.
+
+```html
+<script src="/castform/castform.js"></script>
+<script type="text/javascript">
+  castform.options.forms.signup.myNewField = {
+    required: true,
+    // etc
+  };
+</script>
+```
 
 
 # install
