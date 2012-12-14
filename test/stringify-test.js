@@ -54,31 +54,31 @@ exports['stringifies an object with all types'] = function(test) {
 };
 
 
-exports['make formPass.submit null'] = function(test) {
+exports['make submit.server null'] = function(test) {
   var obj = {
     whatevs: {
-      formPass: {
+      submit: {
         server: function(a, b) { return a + b; },
       }
     }
   };
 
   var parts = stringify(obj);
-  test.equal(parts[1], '{"whatevs":{"formPass":{"server":null}}}');
+  test.equal(parts[1], '{"whatevs":{"submit":{"server":null}}}');
   test.done();
 };
 
 
-exports['make formPass.client a string and not async'] = function(test) {
+exports['make submit.client a string and not async'] = function(test) {
   var obj = {
     whativs: {
-      formPass: {
+      submit: {
         client: function(a, b) { return a + b; },
       }
     }
   };
 
   var parts = stringify(obj);
-  test.equal(parts[1], '{"whativs":{"formPass":{"client":function (a, b) { return a + b; }}}}');
+  test.equal(parts[1], '{"whativs":{"submit":{"client":function (a, b) { return a + b; }}}}');
   test.done();
 };

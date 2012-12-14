@@ -15,12 +15,10 @@ function isEmail(value) {
  * @param {String} username
  * @returns {Boolean}
  */
-function isAvailable(username, callback) {
+function isAvailable(username, pass) {
   // what's up
   // this.req
-  process.nextTick(function() {
-    callback(Math.random() < 0.5);
-  });
+  pass(!/bob/.test(username));
 }
 
 
@@ -30,40 +28,62 @@ module.exports = {
       fields: {
         username: {
           validate: [
-            { fn: /^[a-zA-Z0-9_]*$/
-            , msg: 'Must contain only the characters a-zA-Z0-9_'
-            }
-          , { fn: /^.{1,15}$/, msg: 'Must be between 1 and 15 characters' }
-          , { fn: isAvailable, msg: 'That username is taken' }
-          ]
-        , required: true
-        , storage: { session: true }
-        }
+            { fn: /^[a-zA-Z0-9_]*$/,
+              msg: 'Must contain only the characters a-zA-Z0-9_'
+            },
+            { fn: /^.{1,15}$/, msg: 'Must be between 1 and 15 characters' },
+            { fn: isAvailable, msg: 'That username is taken' }
+          ],
+          required: true,
+          storage: { session: true }
+        },
 
-      , displayName: {
+        displayName: {
           validate: {
-            fn: /^[^\n]{1,30}$/
-          , msg: 'Must be between 1 and 30 characters'
-          }
-        , storage: { session: true }
-        }
+            fn: /^[^\n]{1,30}$/,
+            msg: 'Must be between 1 and 30 characters'
+          },
+          storage: { session: true }
+        },
 
-      , email: {
+        email: {
           validate: [
-            { fn: isEmail, msg: 'Must be a valid email', delay: 1000 }
-          , { fn: isAvailable
-            , msg: 'That email is already associated with an account'
+            { fn: isEmail,
+              msg: 'Must be a valid email',
+              delay: 1000,
+              tooltipDelay: 500
+            },
+            { fn: isAvailable,
+              msg: 'That email is already associated with an account'
             }
-          ]
-        , required: true
-        , storage: { session: true }
+          ],
+          required: true,
+          storage: { session: true }
         }
-      }
-    , formPass: {
+      },
+      submit: {
         server: function(values, pass) {
           // this.req
-        }
-      , client: function(window, success, msg) {
+          setTimeout(function() {
+            pass(true, { hello: 'whatsup' });
+          }, 1000);
+        },
+        client: {
+          before: function submit($submit, options) {
+            if (options.$icon) {
+              options.$icon.text('...');
+            }
+          },
+          pass: function($submit, options, success, msg) {
+            /*global $ */
+            if (options.$icon) {
+              options.$icon.text('');
+            }
+
+            $('.result')
+              .text(msg.hello)
+              .slideDown();
+          }
         }
       }
     }

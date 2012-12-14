@@ -211,7 +211,7 @@ exports.all = function(test) {
       , storage: { session: true }
       }
     },
-    formPass: {
+    submit: {
       server: null
     }
   };
@@ -252,7 +252,7 @@ exports.all = function(test) {
 };
 
 
-exports['all with formPass function'] = function(test) {
+exports['all with submit.server function'] = function(test) {
   var context = { req: { hi: 'you' } };
   var options = {
     fields: {
@@ -272,7 +272,7 @@ exports['all with formPass function'] = function(test) {
       , storage: { session: true }
       }
     },
-    formPass: {
+    submit: {
       server: function(values, pass) {
         test.equal(this, context);
         test.deepEqual(values, { username: 'whatever' });
