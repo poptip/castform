@@ -269,13 +269,14 @@ exports['all with submit.server function'] = function(test) {
           , msg: 'username is taken' }
         ]
       , required: true
+      , sanitize: function(s) { return s.slice(0, 4); }
       , storage: { session: true }
       }
     },
     submit: {
       server: function(values, pass) {
         test.equal(this, context);
-        test.deepEqual(values, { username: 'whatever' });
+        test.deepEqual(values, { username: 'what' });
         pass(true);
       }
     }
