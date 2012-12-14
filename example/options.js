@@ -69,12 +69,12 @@ module.exports = {
           }, 1000);
         },
         client: {
-          before: function submit($submit, options) {
+          before: function submit($submit, options, values) {
             if (options.$icon) {
               options.$icon.text('...');
             }
           },
-          pass: function($submit, options, success, msg) {
+          pass: function($submit, options, values, success, msg) {
             /*global $ */
             if (options.$icon) {
               options.$icon.text('');

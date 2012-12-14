@@ -146,9 +146,9 @@ The following are the available options:
     // when the form is submitted, and enabled when the server calls
     // the `pass` function with a failure..
     client: {
-      before: function($submit, options) {
+      before: function($submit, options, values) {
       },
-      pass: function($submit, options, success, message) {
+      pass: function($submit, options, values, success, message) {
       }
     }
   }
