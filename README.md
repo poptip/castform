@@ -115,15 +115,6 @@ The following are the available options:
   pass: function($field, options, pageLoad, success, validationOptions) {
   },
 
-  // If this is `true`, the default `load` funciton attaches an
-  // element to each field which displays either a green checkmark
-  // or a red x when the default `pass` function is called.
-  icon: true,
-
-  // if true, when `pass` is called and valiation has failed, by default,
-  // a message is displayed specifying what the error was.
-  tooltip: true,
-
   // Called when the form is submitted. The following options can only be
   // used per form, not per field.
   submit: {
@@ -172,7 +163,16 @@ The following are the available options:
 }
 ```
 
-Furthermore, the classes `castform-success` and `castform-fail` are added to a field when they pass or fail validation respectively. And the class `castform-submit` is added to the form when it has been submitted.
+### classes
+
+The following classes are used to style forms.
+
+* `castform-field` - Added to all fields that will be validated by castform.
+* `castform-success` - Added to a field when it successfully passes validation.
+* `castform-fail` - Added to a field when it fails validation.
+* `castform-submit` - Added to the submit button when the form has been submitted.
+* `castform-tooltip` - Used on the tooltip that shows validation error messages on each field.
+
 
 ### client side
 
