@@ -75,7 +75,6 @@ module.exports = {
             }
           },
           pass: function($submit, options, values, success, msg) {
-            /*global $ */
             if (options.$icon) {
               options.$icon.text('');
             }
