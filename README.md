@@ -70,7 +70,8 @@ The following are the available options:
       msg: 'That username is taken' },
   ],
 
-  // Wether this field is required or not. If it is blank it will be considered undefined too.
+  // Wether this field is required or not.
+  // If it is blank it will be considered undefined too.
   required: true,
 
   storage: {
