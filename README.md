@@ -60,7 +60,7 @@ The following are the available options:
           db.collection.findOne(value, function(err, doc) {
             if (err) {
               done(false, err.message);
-            } else if (!doc) {
+            } else if (doc) {
               done(false);
             } else {
               done(true);
