@@ -18,7 +18,9 @@ function isEmail(value) {
 function isAvailable(username, pass) {
   // what's up
   // this.req
-  pass(!/bob/.test(username));
+  setTimeout(function() {
+    pass(!/bob/.test(username));
+  }, 1000);
 }
 
 
@@ -70,9 +72,10 @@ module.exports = {
         },
         client: {
           before: function submit($submit, options, values) {
-            if (options.$icon) {
-              options.$icon.text('...');
+            if (!options.$icon) {
+              options.$icon = $('<span>').insertAfter($submit);
             }
+            options.$icon.text('...');
           },
           pass: function($submit, options, values, success, msg) {
             if (options.$icon) {
@@ -80,7 +83,7 @@ module.exports = {
             }
 
             $('.result')
-              .text(msg.hello)
+              .text(msg.hello || msg)
               .slideDown();
           }
         }
