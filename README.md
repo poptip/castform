@@ -6,18 +6,18 @@ Form validation on the client and server.
 
 # usage
 
-### server.js using connect
+### server.js
 
 Castform can work with the a server instance and can also be a middleware for connect, express, and flatiron. See the examples folder for working examples.
 
 ```js
 var castform = require('castform');
 
-// server
+// server with core http module
 var server = http.createServer();
 castform(options, server);
 
-// middleware
+// middleware using connectx
 connect()
   .use(castform(options));
 ```
