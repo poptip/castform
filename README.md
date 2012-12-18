@@ -72,6 +72,8 @@ The following are the available options:
 
   // Wether this field is required or not.
   // If it is blank it will be considered undefined too.
+  // By default the error message displayed is "This field is required".
+  // To use your own, make this option a string.
   required: true,
 
   storage: {
