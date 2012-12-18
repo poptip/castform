@@ -162,19 +162,28 @@ The following are the available options:
       pass: function($submit, options, values, success, message) {
       }
     }
+  },
+
+  // The following classes are used to style forms and fields
+  // while they are in different states.
+  styles: {
+    // Added to all fields that will be validated by castform.
+    field: 'castform-field',
+
+    // Added to a field when it successfully passes validation.
+    success: 'castform-success',
+
+    // Added to a field when it fails validation.
+    fail: 'castform-fail',
+
+    // Added to the submit button when the form has been submitted.
+    submit: 'castform-submit',
+
+    // Used on the tooltip that shows validation error messages on each field.
+    tooltip: 'castform-tooltip'
   }
 }
 ```
-
-### classes
-
-The following classes are used to style forms.
-
-* `castform-field` - Added to all fields that will be validated by castform.
-* `castform-success` - Added to a field when it successfully passes validation.
-* `castform-fail` - Added to a field when it fails validation.
-* `castform-submit` - Added to the submit button when the form has been submitted.
-* `castform-tooltip` - Used on the tooltip that shows validation error messages on each field.
 
 
 ### client side
