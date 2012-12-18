@@ -1,4 +1,4 @@
-# castform
+# castform [![Build Status](https://secure.travis-ci.org/poptip/castform.png)](http://travis-ci.org/poptip/castform)
 
 ![castform](http://cdn.bulbagarden.net/upload/thumb/f/f3/351Castform.png/110px-351Castform.png)
 
