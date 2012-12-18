@@ -1,8 +1,8 @@
 /*global castform */
 var signup = castform.options.forms.signup;
 var username = signup.fields.username;
-username.required = false;
-//username.storage.session = false;
+//username.required = false;
+//username.storage.session = true;
 //username.storage.force = true;
 //username.storage.cache = true;
 //username.cache = { foo: [false, 'NOOOOOOOOOOOOOOOO'] };
